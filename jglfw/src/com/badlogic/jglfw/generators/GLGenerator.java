@@ -47,7 +47,7 @@ public class GLGenerator {
 	private void generatePreamble (StringBuffer buffer) {
 		buffer.append("\t// @off\n");
 		buffer.append("\t/*JNI\n"); 
-		buffer.append("\t#include <GL/glfw3.h>\n");		
+		buffer.append("\t#include <GLFW/glfw3.h>\n");		
 		buffer.append("\t#include \"GL/glext.h\"\n");
 		buffer.append("\t*/\n");
 	}

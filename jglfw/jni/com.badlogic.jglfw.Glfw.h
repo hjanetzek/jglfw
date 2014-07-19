@@ -725,10 +725,10 @@ JNIEXPORT jlong JNICALL Java_com_badlogic_jglfw_Glfw_glfwGetWindowMonitor
 
 /*
  * Class:     com_badlogic_jglfw_Glfw
- * Method:    glfwGetWindowParam
+ * Method:    glfwGetWindowAttrib
  * Signature: (JI)I
  */
-JNIEXPORT jint JNICALL Java_com_badlogic_jglfw_Glfw_glfwGetWindowParam
+JNIEXPORT jint JNICALL Java_com_badlogic_jglfw_Glfw_glfwGetWindowAttrib
   (JNIEnv *, jclass, jlong, jint);
 
 /*
@@ -790,34 +790,26 @@ JNIEXPORT jboolean JNICALL Java_com_badlogic_jglfw_Glfw_glfwGetMouseButton
 /*
  * Class:     com_badlogic_jglfw_Glfw
  * Method:    glfwGetCursorPosX
- * Signature: (J)I
+ * Signature: (J)D
  */
-JNIEXPORT jint JNICALL Java_com_badlogic_jglfw_Glfw_glfwGetCursorPosX
+JNIEXPORT jdouble JNICALL Java_com_badlogic_jglfw_Glfw_glfwGetCursorPosX
   (JNIEnv *, jclass, jlong);
 
 /*
  * Class:     com_badlogic_jglfw_Glfw
  * Method:    glfwGetCursorPosY
- * Signature: (J)I
+ * Signature: (J)D
  */
-JNIEXPORT jint JNICALL Java_com_badlogic_jglfw_Glfw_glfwGetCursorPosY
+JNIEXPORT jdouble JNICALL Java_com_badlogic_jglfw_Glfw_glfwGetCursorPosY
   (JNIEnv *, jclass, jlong);
 
 /*
  * Class:     com_badlogic_jglfw_Glfw
  * Method:    glfwSetCursorPos
- * Signature: (JII)V
+ * Signature: (JDD)V
  */
 JNIEXPORT void JNICALL Java_com_badlogic_jglfw_Glfw_glfwSetCursorPos
-  (JNIEnv *, jclass, jlong, jint, jint);
-
-/*
- * Class:     com_badlogic_jglfw_Glfw
- * Method:    glfwGetJoystickParam
- * Signature: (II)I
- */
-JNIEXPORT jint JNICALL Java_com_badlogic_jglfw_Glfw_glfwGetJoystickParam
-  (JNIEnv *, jclass, jint, jint);
+  (JNIEnv *, jclass, jlong, jdouble, jdouble);
 
 /*
  * Class:     com_badlogic_jglfw_Glfw

@@ -20,23 +20,23 @@
 	<fileset id="gcc-files" dir="./">
 		<exclude name="target/"/>		
 				<include name="memcpy_wrap.c"/>
-		<include name="glfw-3.0/src/clipboard.c"/>
-		<include name="glfw-3.0/src/context.c"/>
-		<include name="glfw-3.0/src/gamma.c"/>
-		<include name="glfw-3.0/src/init.c"/>
-		<include name="glfw-3.0/src/input.c"/>
-		<include name="glfw-3.0/src/joystick.c"/>
-		<include name="glfw-3.0/src/monitor.c"/>
-		<include name="glfw-3.0/src/time.c"/>
-		<include name="glfw-3.0/src/window.c"/>
-		<include name="glfw-3.0/src/win32_clipboard.c"/>
-		<include name="glfw-3.0/src/win32_gamma.c"/>
-		<include name="glfw-3.0/src/win32_init.c"/>
-		<include name="glfw-3.0/src/win32_joystick.c"/>
-		<include name="glfw-3.0/src/win32_monitor.c"/>
-		<include name="glfw-3.0/src/win32_time.c"/>
-		<include name="glfw-3.0/src/win32_window.c"/>
-		<include name="glfw-3.0/src/wgl_context.c"/>
+		<include name="glfw/src/clipboard.c"/>
+		<include name="glfw/src/context.c"/>
+		<include name="glfw/src/gamma.c"/>
+		<include name="glfw/src/init.c"/>
+		<include name="glfw/src/input.c"/>
+		<include name="glfw/src/joystick.c"/>
+		<include name="glfw/src/monitor.c"/>
+		<include name="glfw/src/time.c"/>
+		<include name="glfw/src/window.c"/>
+		<include name="glfw/src/win32_clipboard.c"/>
+		<include name="glfw/src/win32_gamma.c"/>
+		<include name="glfw/src/win32_init.c"/>
+		<include name="glfw/src/win32_joystick.c"/>
+		<include name="glfw/src/win32_monitor.c"/>
+		<include name="glfw/src/win32_time.c"/>
+		<include name="glfw/src/win32_window.c"/>
+		<include name="glfw/src/wgl_context.c"/>
 
 		
 	</fileset>
@@ -108,8 +108,8 @@
 			<arg value="-Ijni-headers"/>
 			<arg value="-Ijni-headers/${jniPlatform}"/>
 			<arg value="-I."/>
-						<arg value="-Iglfw-3.0/include"/>
-			<arg value="-Iglfw-3.0/src"/>
+						<arg value="-Iglfw/include"/>
+			<arg value="-Iglfw/src"/>
 			<arg value="-Igl-headers/"/>
 			<arg value="-Ial-headers"/>
 
@@ -127,8 +127,8 @@
 			<arg value="-Ijni-headers"/>
 			<arg value="-Ijni-headers/${jniPlatform}"/>
 			<arg value="-I."/>
-						<arg value="-Iglfw-3.0/include"/>
-			<arg value="-Iglfw-3.0/src"/>
+						<arg value="-Iglfw/include"/>
+			<arg value="-Iglfw/src"/>
 			<arg value="-Igl-headers/"/>
 			<arg value="-Ial-headers"/>
 

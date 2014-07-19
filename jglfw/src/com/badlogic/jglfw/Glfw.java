@@ -266,7 +266,7 @@ public class Glfw {
 
 	// @off
 	/*JNI 
-	#include <GL/glfw3.h>
+	#include <GLFW/glfw3.h>
 	
 	static jmethodID errorId = 0;
 	static jmethodID monitorId = 0;
@@ -351,11 +351,10 @@ public class Glfw {
 		}
 	}
 	
-	int windowClose(GLFWwindow* window) {
+	void windowClose(GLFWwindow* window) {
 		if(callback) {
-			return (getEnv()->CallBooleanMethod(callback, windowCloseId, (jlong)window)?GL_TRUE:GL_FALSE);
+			getEnv()->CallVoidMethod(callback, windowCloseId, (jlong)window);
 		}
-		return GL_TRUE;
 	}
 	
 	void windowRefresh(GLFWwindow* window) {
@@ -376,15 +375,15 @@ public class Glfw {
 		}
 	}
 	
-	void mouseButton(GLFWwindow* window, int button, int action) {
+	void mouseButton(GLFWwindow* window, int button, int action, int mods) {
 		if(callback) {
-			getEnv()->CallVoidMethod(callback, mouseButtonId, (jlong)window, (jint)button, (jint)action);
+			getEnv()->CallVoidMethod(callback, mouseButtonId, (jlong)window, (jint)button, (jint)action, (jint)mods);
 		}
 	}
 	
-	void cursorPos(GLFWwindow* window, int x, int y) {
+	void cursorPos(GLFWwindow* window, double x, double y) {
 		if(callback) {
-			getEnv()->CallVoidMethod(callback, cursorPosId, (jlong)window, (jint)x, (jint)y);
+			getEnv()->CallVoidMethod(callback, cursorPosId, (jlong)window, (jint)(x+0.5), (jint)(y+0.5));
 		}
 	}
 	
@@ -400,9 +399,9 @@ public class Glfw {
 		}
 	}
 	
-	void key(GLFWwindow* window, int key, int action) {
+	void key(GLFWwindow* window, int key, int scancode, int action, int mods) {
 		if(callback) {
-			getEnv()->CallVoidMethod(callback, keyId, (jlong)window, (jint)key, (jint)action);
+			getEnv()->CallVoidMethod(callback, keyId, (jlong)window, (jint)key, (jint)action, (jint)mods);
 		}
 	}
 	
@@ -644,12 +643,12 @@ public class Glfw {
 	}
 	
 	private static native void glfwGetVideoModeJni(long monitor, int[] buffer); /*
-		GLFWvidmode mode = glfwGetVideoMode((GLFWmonitor*)monitor);
-		buffer[0] = mode.width;
-		buffer[1] = mode.height;
-		buffer[2] = mode.redBits;
-		buffer[3] = mode.greenBits;
-		buffer[4] = mode.blueBits;
+		const GLFWvidmode* mode = glfwGetVideoMode((GLFWmonitor*)monitor);
+		buffer[0] = mode->width;
+		buffer[1] = mode->height;
+		buffer[2] = mode->redBits;
+		buffer[3] = mode->greenBits;
+		buffer[4] = mode->blueBits;
 	*/
 	
 	public static native void glfwSetGamma(long monitor, float gamma); /*
@@ -767,8 +766,8 @@ public class Glfw {
 		return (jlong)glfwGetWindowMonitor((GLFWwindow*)window);
 	*/
 
-	public static native int glfwGetWindowParam(long window, int param); /*
-		return glfwGetWindowParam((GLFWwindow*)window, param);
+	public static native int glfwGetWindowAttrib(long window, int attrib); /*
+		return glfwGetWindowAttrib((GLFWwindow*)window, attrib);
 	*/
 	
 	
@@ -821,34 +820,54 @@ public class Glfw {
 		return glfwGetMouseButton((GLFWwindow*)window, button) == GLFW_PRESS;
 	*/
 	
-	public static native int glfwGetCursorPosX(long window); /*
-		int x = 0;
-		int y = 0;
+	public static native double glfwGetCursorPosX(long window); /*
+		double x = 0;
+		double y = 0;
 		glfwGetCursorPos((GLFWwindow*)window, &x, &y);
 		return x;
 	*/
 	
-	public static native int glfwGetCursorPosY(long window); /*
-		int x = 0;
-		int y = 0;
+	public static native double glfwGetCursorPosY(long window); /*
+		double x = 0;
+		double y = 0;
 		glfwGetCursorPos((GLFWwindow*)window, &x, &y);
 		return y;
 	*/
 	
-	public static native void glfwSetCursorPos(long window, int x, int y); /*
+	public static native void glfwSetCursorPos(long window, double x, double y); /*
 		glfwSetCursorPos((GLFWwindow*)window, x, y);
 	*/
 	
-	public static native int glfwGetJoystickParam(int joy, int param); /*
-		return glfwGetJoystickParam(joy, param);
-	*/
+//	public static native int glfwGetJoystickParam(int joy, int param); /*
+//		return glfwGetJoystickParam(joy, param);
+//	*/
 	
 	public static native int glfwGetJoystickAxes(int joy, float[] axes); /*
-		return glfwGetJoystickAxes(joy, axes, env->GetArrayLength(obj_axes));
+	    int count = 0;
+		const float* axs = glfwGetJoystickAxes(joy, &count);
+		if (axs == NULL || count == 0)
+			return 0;
+		
+		int limit = env->GetArrayLength(obj_axes);
+		if (limit > count)
+		 	limit = count;
+		for (int i = 0; i < limit; i++)
+		    axes[i] = axs[i];
+		    
+		return count;
+		//return glfwGetJoystickAxes(joy, axes, env->GetArrayLength(obj_axes));
 	*/
 	
 	public static native int glfwGetJoystickButtons(int joy, byte[] buttons); /*
-		return glfwGetJoystickButtons(joy, (unsigned char*)buttons, env->GetArrayLength(obj_buttons));
+	    int count = 0;
+		const unsigned char* btn = glfwGetJoystickButtons(joy, &count);
+		int limit = env->GetArrayLength(obj_buttons);
+		if (limit > count)
+		 	limit = count;
+		for (int i = 0; i < limit; i++)
+		    buttons[i] = btn[i];
+		    
+		return count;
 	*/
 	
 	public static native String glfwGetJoystickName(int joy); /*

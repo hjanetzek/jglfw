@@ -4876,7 +4876,7 @@ public class GL {
 
 	// @off
 	/*JNI
-	#include <GL/glfw3.h>
+	#include <GLFW/glfw3.h>
 	#include "GL/glext.h"
 	*/
 	// @off

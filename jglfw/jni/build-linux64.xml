@@ -20,24 +20,28 @@
 	<fileset id="gcc-files" dir="./">
 		<exclude name="target/"/>		
 				<include name="memcpy_wrap.c"/>
-		<include name="glfw-3.0/src/clipboard.c"/>
-		<include name="glfw-3.0/src/context.c"/>
-		<include name="glfw-3.0/src/gamma.c"/>
-		<include name="glfw-3.0/src/init.c"/>
-		<include name="glfw-3.0/src/input.c"/>
-		<include name="glfw-3.0/src/joystick.c"/>
-		<include name="glfw-3.0/src/monitor.c"/>
-		<include name="glfw-3.0/src/time.c"/>
-		<include name="glfw-3.0/src/window.c"/>
-		<include name="glfw-3.0/src/x11_clipboard.c"/>
-		<include name="glfw-3.0/src/x11_gamma.c"/>
-		<include name="glfw-3.0/src/x11_init.c"/>
-		<include name="glfw-3.0/src/x11_joystick.c"/>
-		<include name="glfw-3.0/src/x11_monitor.c"/>
-		<include name="glfw-3.0/src/x11_time.c"/>
-		<include name="glfw-3.0/src/x11_unicode.c"/>
-		<include name="glfw-3.0/src/x11_window.c"/>
-		<include name="glfw-3.0/src/glx_context.c"/>
+		<include name="glfw/src/clipboard.c"/>
+		<include name="glfw/src/context.c"/>
+		<include name="glfw/src/gamma.c"/>
+		<include name="glfw/src/init.c"/>
+		<include name="glfw/src/input.c"/>
+		<include name="glfw/src/joystick.c"/>
+		<include name="glfw/src/monitor.c"/>
+		<include name="glfw/src/time.c"/>
+		<include name="glfw/src/window.c"/>
+		<include name="glfw/src/x11_clipboard.c"/>
+		<include name="glfw/src/x11_gamma.c"/>
+		<include name="glfw/src/x11_init.c"/>
+		<include name="glfw/src/linux_joystick.c"/>
+		<include name="glfw/src/x11_monitor.c"/>
+		<include name="glfw/src/x11_time.c"/>
+		<include name="glfw/src/x11_unicode.c"/>
+		<include name="glfw/src/x11_window.c"/>
+		<include name="glfw/src/glx_context.c"/>
+		<include name="glfw/src/time.c"/>
+		<include name="glfw/src/posix_time.c"/>
+		<include name="glfw/src/posix_tls.c"/>
+		<include name="glfw/src/xkb_unicode.c"/>
 
 		
 	</fileset>
@@ -56,7 +60,7 @@
 	<!-- define linker and options -->
 	<property name="linker" value="${compilerPrefix}g++${compilerSuffix}"/>
 	<property name="linker-opts" value="-shared -m64 -Wl,-wrap,memcpy"/>
-	<property name="libraries" value="-lX11 -lXrandr -lXxf86vm -lpthread"/>
+	<property name="libraries" value="-lX11 -lXi -lXcursor -lXrandr -lXxf86vm -lpthread"/>
 	
 	<!-- cleans the build directory, removes all object files and shared libs -->
 	<target name="clean">
@@ -109,8 +113,8 @@
 			<arg value="-Ijni-headers"/>
 			<arg value="-Ijni-headers/${jniPlatform}"/>
 			<arg value="-I."/>
-						<arg value="-Iglfw-3.0/include"/>
-			<arg value="-Iglfw-3.0/src"/>
+						<arg value="-Iglfw/include"/>
+			<arg value="-Iglfw/src"/>
 			<arg value="-Igl-headers/"/>
 			<arg value="-Ial-headers"/>
 
@@ -128,8 +132,8 @@
 			<arg value="-Ijni-headers"/>
 			<arg value="-Ijni-headers/${jniPlatform}"/>
 			<arg value="-I."/>
-						<arg value="-Iglfw-3.0/include"/>
-			<arg value="-Iglfw-3.0/src"/>
+						<arg value="-Iglfw/include"/>
+			<arg value="-Iglfw/src"/>
 			<arg value="-Igl-headers/"/>
 			<arg value="-Ial-headers"/>
 
